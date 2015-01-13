@@ -14,9 +14,16 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
   end
 
-  # GET /products/new
+  # GET /category/new
   def new
+    #binding.pry
+    #@category = Category.new
+    #@category.products << Product.new
+    #@category.products << Product.new
     @category = Category.new
+    3.times { @category.products.build
+    }
+    #binding.pry
   end
 
   # GET /categories/1/edit

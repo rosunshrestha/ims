@@ -18,6 +18,7 @@ class ProductsController < ApplicationController
     @product = Product.new
     @product.category_id = params[:category_id]
 
+
   end
 
   # GET /products/1/edit
