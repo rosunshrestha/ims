@@ -1,1 +1,10 @@
 <h1><%= @category.name %></h1>
+<ol>
+  <% for product in @category.products %>
+      <li><%= h product.name %></li>
+      <ul>
+            <li>Description: <%= h product.description %></li>
+            <li>Price: <%= h product.price %></li>
+      </ul>
+  <% end %>
+</ol>

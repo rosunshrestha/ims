@@ -5,6 +5,9 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
+    #raise AccessDenied
+    session[:test] ='test'
+    reset_session
     @categories = Category.all
   end
 
@@ -16,11 +19,11 @@ class CategoriesController < ApplicationController
 
   # GET /category/new
   def new
-    #binding.pry
-    #@category = Category.new
-    #@category.products << Product.new
-    #@category.products << Product.new
+
     @category = Category.new
+    #@category.products << Product.new
+    #@category.products << Product.new
+    #@category = Category.new(name: cookies[:cat])
     3.times { @category.products.build
     }
     #binding.pry
@@ -34,10 +37,10 @@ class CategoriesController < ApplicationController
   # POST /products.json
   def create
     @category = Category.new(category_params)
-
     respond_to do |format|
       if @category.save
-        format.html { redirect_to category_url, notice: 'Categories was successfully created'}
+        cookies[:cat] = @category.name
+        format.html { redirect_to categories_url, notice: 'Categories was successfully created'}
         format.json { render :show, status: :created, location: @category}
       else
         format.html { render :new}
@@ -49,6 +52,7 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
+
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to categories_url, notice: 'Category was successfully updated.' }
@@ -74,12 +78,15 @@ class CategoriesController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_category
-    @category = Category.find(params[:id])
-  end
+      @category = Category.find(params[:id])
+    end
+
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def category_params
-    params.require(:category).permit(:name)
+  # params.require(:category).permit(:name)
+    params.require(:category).permit(:name, products_attributes:
+                                              [:name, :description, :price,:id])
   end
 
 end
