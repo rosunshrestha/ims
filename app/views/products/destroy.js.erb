@@ -1,1 +1,3 @@
 $('#product_<%=@product.id%>').remove();
+alert('<%=flash[:notice]%>');
+document.getElementById('notice').innerHTML ="<%=flash[:notice]%>"

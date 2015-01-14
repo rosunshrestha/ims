@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     rescue_from AccessDenied, with: :access_denied
 
     def access_denied
-      redirect_to root_url, alert:  'Nope, can’t allow to do that.'
+      redirect_to new_user_session_path, alert:  'Nope, can’t allow to do that.'
       end
 
 end
