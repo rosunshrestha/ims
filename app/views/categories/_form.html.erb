@@ -10,12 +10,31 @@
           </ul>
         </div>
     <% end %>
-
     <div class="field">
-      <%= f.label :name %><br>
+      <%= f.label 'Category Name' %><br>
       <%= f.text_field :name %>
     </div>
+    <%i=1%>
+    <%=f.fields_for :products do |product| %>
+
+        <h2>Product <%=i%></h2>
+        <%i=i+1%>
+                <div class="field">
+          <%= product.label :name %><br>
+          <%= product.text_field :name %>
+        </div>
+        <div class="field">
+          <%= product.label :description %><br>
+          <%= product.text_field :description %>
+        </div>
+        <div class="field">
+          <%= product.label :price %><br>
+          <%= product.number_field :price %>
+        </div>
+    <% end %>
     <div class="actions">
       <%= f.submit %>
     </div>
 <% end %>
+
+

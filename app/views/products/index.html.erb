@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<div id='notice'><%= flash[:notice] %></div>
 
 <h1>Listing Products</h1>
 
@@ -14,7 +14,7 @@
 
   <tbody>
   <% @products.each do |product| %>
-      <tr>
+      <tr id="product_<%=product.id%>">
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.price %></td>
@@ -27,5 +27,4 @@
 </table>
 
 <br>
-
-<%= link_to 'New Product', new_category_product_path %>
+<%= link_to 'Enter New Product', new_category_product_path %>
