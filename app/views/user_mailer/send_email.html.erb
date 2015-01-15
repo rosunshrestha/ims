@@ -1,0 +1,12 @@
+
+
+<% info ='' %>
+<% @products.each do |product| %>
+
+<ol>
+  <li>Product Name          :: <%=product.name%></li>
+  <li>Product Description   ::<%=product.description%></li>
+  <li>Price                 :: <%=product.price%></li>
+  <br/><br/>
+</ol>
+<%end%>

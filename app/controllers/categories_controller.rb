@@ -1,11 +1,13 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only:[:show, :edit, :update, :destroy]
   before_action :custom_authentication
+  before_action :set_language
   #before_action :authenticate_user!
   # GET /categories
   # GET /categories.json
   def index
     @categories = Category.all
+
   end
 
   # GET /categories/1
@@ -31,7 +33,8 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
     respond_to do |format|
       if @category.save
-        flash[:notice] = 'Category was successfully created'
+        flash[:notice] = t('cat_message_create')
+        UserMailer.send_email(@category.products,current_user).deliver
         format.html { redirect_to categories_path}
         format.json { render :show, status: :created, location: @category}
       else
@@ -41,12 +44,13 @@ class CategoriesController < ApplicationController
     end
   end
 
+
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
     respond_to do |format|
       if @category.update(category_params)
-        flash[:notice] = 'Category was successfully updated.'
+        flash[:notice] = t('cat_message_update')
         format.html { redirect_to categories_path }
         format.json { render :show, status: :ok, location: @category }
       else
@@ -61,7 +65,7 @@ class CategoriesController < ApplicationController
   def destroy
     if @category.destroy
     respond_to do |format|
-      flash[:notice] = 'Category was successfully destroyed.'
+      flash[:notice] = t('cat_message_delete')
       format.html { redirect_to categories_path }
       format.json { head :no_content }
     end
@@ -79,6 +83,18 @@ class CategoriesController < ApplicationController
     # binding.pry
     if !current_user
       raise AccessDenied
+    end
+  end
+
+  def set_language
+
+    begin
+
+          I18n.locale = params[:locale]
+          session[:language] = I18n.locale
+
+    rescue I18n::InvalidLocale
+      I18n.locale = session[:language]
     end
   end
   # Never trust parameters from the scary internet, only allow the white list through.
