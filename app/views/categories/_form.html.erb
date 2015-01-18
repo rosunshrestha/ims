@@ -14,11 +14,10 @@
       <%= f.label 'Category Name' %><br>
       <%= f.text_field :name %>
     </div>
-    <%i=1%>
-    <%=f.fields_for :products do |product| %>
 
-        <h2>Product <%=i%></h2>
-        <%i=i+1%>
+        <%=f.fields_for :products do |index,product| %>
+
+        <h2>Product <%=index%></h2>
                 <div class="field">
           <%= product.label :name %><br>
           <%= product.text_field :name %>

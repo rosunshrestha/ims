@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
     @products = products
 
 
-    mail(to: 'roshanshrestha@lftechnology.com', subject: 'Product created by '+users.email)
+    mail(to: 'roshanshrestha@lftechnology.com', subject: 'Product created by #{users.email})')
 
   end
 end

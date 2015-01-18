@@ -81,9 +81,7 @@ class CategoriesController < ApplicationController
 
   def custom_authentication
     # binding.pry
-    if !current_user
-      raise AccessDenied
-    end
+      raise AccessDenied unless current_user
   end
 
   def set_language
