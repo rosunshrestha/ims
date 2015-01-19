@@ -19,11 +19,11 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+np:
   hello: "Hello world"
-  cat_message_delete: "Category deleted successfully"
-  cat_message_update: "Category updated successfully"
-  cat_message_create: "Category created successfully"
-  prod_message_delete: "Category delete successfully"
-  prod_message_update: "Category updated successfully"
-  prod_message_create: "Category created successfully"
+  cat_message_delete: "श्रेणी सफलतापूर्वक नष्ट"
+  cat_message_update: "श्रेणी सफलतापूर्वक अद्यावधिक"
+  cat_message_create: "श्रेणी सफलतापूर्वक सिर्जना"
+  prod_message_delete: "उत्पादन सफलतापूर्वक नष्ट"
+  prod_message_update: "उत्पादन सफलतापूर्वक अद्यावधिक"
+  prod_message_create: "उत्पादन सफलतापूर्वक सिर्जना"

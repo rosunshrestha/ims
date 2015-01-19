@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
 
   before_action :set_product, only:[:show, :edit, :update, :destroy]
+  before_action :set_language
 
   def index
     @products = Category.find(params[:category_id]).products
@@ -35,7 +36,9 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        flash[:notice] = 'Product was successfully created.'
+        binding.pry
+        UserMailer.send_email(@product.name,current_user).deliver
+        flash[:notice] = t('prod_message_create')
         format.html { redirect_to category_products_path }
         format.json { render :show, status: :created, location: @product }
       else
@@ -51,7 +54,7 @@ class ProductsController < ApplicationController
     @category = Category.find(params[:category_id])
     respond_to do |format|
       if @product.update(product_params)
-        flash[:notice] ='Product was successfully updated.'
+        flash[:notice] =t('prod_message_update')
         format.html { redirect_to category_products_path }
         format.json { render :show, status: :ok, location: @product }
       else
@@ -68,7 +71,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.js
-      flash[:notice] = 'Product was successfully destroyed.'
+      flash[:notice] = t('cat_message_delete')
       format.html { redirect_to category_products_url  }
       format.json { head :no_content }
     end
@@ -81,6 +84,18 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
+
+  def set_language
+
+    begin
+
+      I18n.locale = params[:locale]
+      session[:language] = I18n.locale
+
+    rescue I18n::InvalidLocale
+      I18n.locale = session[:language]
+    end
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def product_params
